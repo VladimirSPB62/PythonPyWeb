@@ -166,7 +166,9 @@ if __name__ == "__main__":
     # print(Blog.objects.latest("id"))  # Одинаково работает
 
     # print(Blog.objects.count())  # Можно ко всей таблице
-    print(Blog.objects.filter(id__gte=2).count())  # Можно к запросу
+    # print(Blog.objects.filter(id__gte=2).count())  # Можно к запросу
     # all_data = Blog.objects.all()
     # filtred_data = all_data.filter(id__gte=2)
     # print(filtred_data.count())  # Можно к частным запросам
+
+    print(Author.objects.annotate(article_count=Count('entries')).order_by('-article_count').first())
