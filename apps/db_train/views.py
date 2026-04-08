@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from pygments.lexer import default
 
-from models import Author, AuthorProfile, Entry, Tag
+from .models import Author, AuthorProfile, Entry, Tag
 from django.db.models import Q, Max, Min, Avg, Count
 
 
@@ -16,6 +16,8 @@ class TrainView(View):
         self.answer1 = Author.objects.filter(self_esteem=max_self_esteem['max_self_esteem'])
 
         # TODO Какой автор имеет наибольшее количество опубликованных статей?
+
+
         # Находим автора с наибольшим числом статей
         self.answer2 = Author.objects.annotate(article_count=Count('entries')).order_by('-article_count').first()
 
@@ -23,7 +25,8 @@ class TrainView(View):
         self.answer3 = Entry.objects.filter(tags__name__in=['Кино', 'Музыка']).distinct()
 
         # TODO Сколько авторов женского пола зарегистрировано в системе?
-        self.answer4 = Author.objects.filter(gender='ж').count()
+        self.answer4 =
+
 
         # TODO Какой процент авторов согласился с правилами при регистрации?
         total_authors = Author.objects.count()
@@ -44,8 +47,11 @@ class TrainView(View):
         self.answer9 = Author.objects.filter(age__lt=25)
 
         # TODO Сколько статей написано каждым автором?
-        self.answer10 = Author.objects.annotate(
-            article_count=Count('entries'))
+        # self.answer10 = Author.objects.annotate(
+        #     article_count=Count('entries'))
+
+        self.answer10 = Author.objects.annotate(number_of_entries=Count('entries')).values('username', 'number_of_entries')
+
 
 
 
