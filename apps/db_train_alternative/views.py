@@ -14,7 +14,6 @@ class AuthorREST(View):
         return super().dispatch(*args, **kwargs)
 
     def get(self, request, id=None):
-
         if id is None:  # Проверяем, что требуется вернуть всех пользователей
             data = []
             for author in Author.objects.all():
